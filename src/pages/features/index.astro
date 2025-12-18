@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const features = [
+	{
+		titre: "Compréhension automatique du contenu vidéo",
+		probleme: "Analyser manuellement des heures de rush pour identifier les meilleurs moments",
+		solution: "L'IA analyse automatiquement votre contenu, identifie les moments clés, les silences, les transitions naturelles et les passages à fort potentiel",
+		icon: "target"
+	},
+	{
+		titre: "Montage intelligent orienté plateformes",
+		probleme: "Adapter manuellement le montage pour chaque plateforme (YouTube, TikTok, Reels, Shorts)",
+		solution: "Editrix génère automatiquement des versions optimisées pour chaque plateforme : timing, cadrage, format et durée adaptés",
+		icon: "smartphone"
+	},
+	{
+		titre: "Automatisation des tâches répétitives",
+		probleme: "Passer des heures sur les coupes, les sous-titres, les transitions et les exports",
+		solution: "Automatisation complète : coupes précises, sous-titres synchronisés, transitions fluides, exports multi-formats en un clic",
+		icon: "zap"
+	},
+	{
+		titre: "Analyse et prédiction de performance",
+		probleme: "Publier sans savoir si la vidéo va performer, analyser uniquement après coup",
+		solution: "Score de performance prédictif avant publication : rétention estimée, qualité du hook, engagement prévu, recommandations d'amélioration",
+		icon: "chart"
+	},
+	{
+		titre: "Collaboration et export simplifiés",
+		probleme: "Gérer les feedbacks par email, coordonner l'équipe, exporter vidéo par vidéo",
+		solution: "Collaboration en temps réel avec commentaires inline, gestion d'équipe intégrée, exports en batch pour tous les formats",
+		icon: "users"
+	}
+];
+---
+
+<Layout title="Fonctionnalités Editrix - Comment ça marche" description="Découvrez comment Editrix révolutionne le montage vidéo avec l'IA">
+	<div class="card" style="text-align: center;">
+		<h1>Comment ça marche</h1>
+		<p style="font-size: 1.2rem; color: #b0b0b0;">
+			Editrix automatise et optimise chaque étape du montage vidéo
+		</p>
+	</div>
+
+	{features.map((feature, index) => (
+		<div class="card">
+			<div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;">
+				<div style="text-align: center;">
+					{feature.icon === "target" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gf1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gf1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>}
+					{feature.icon === "smartphone" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gf2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gf2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>}
+					{feature.icon === "zap" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gf3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gf3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>}
+					{feature.icon === "chart" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gf4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gf4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>}
+					{feature.icon === "users" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gf5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gf5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>}
+				</div>
+				<div>
+					<h2 style="margin-bottom: 1rem;">
+						{index + 1}. {feature.titre}
+					</h2>
+					
+					<div style="margin-bottom: 1.5rem;">
+						<h3 style="font-size: 1.1rem; color: #f87171; margin-bottom: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Le problème</h3>
+						<p style="padding: 1rem; background: rgba(255, 51, 51, 0.05); border-radius: 8px; border-left: 3px solid #ff6699;">
+							{feature.probleme}
+						</p>
+					</div>
+
+					<div>
+						<h3 style="font-size: 1.1rem; color: #4ade80; margin-bottom: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>La solution Editrix</h3>
+						<p style="padding: 1rem; background: rgba(51, 255, 153, 0.05); border-radius: 8px; border-left: 3px solid #66ff99;">
+							{feature.solution}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	))}
+
+	<section class="card" style="text-align: center;">
+		<h2>Prêt à automatiser votre montage ?</h2>
+		<p style="margin-bottom: 2rem; font-size: 1.1rem;">
+			Découvrez toute la puissance d'Editrix en action
+		</p>
+		<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+			<a href="/contact" class="button">Demander une démo</a>
+			<a href="/products" class="button button-secondary">Voir les produits</a>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	@media (max-width: 768px) {
+		div[style*="grid-template-columns: auto 1fr"] {
+			grid-template-columns: 1fr !important;
+		}
+	}
+</style>

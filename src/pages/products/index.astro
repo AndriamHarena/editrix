@@ -1,0 +1,189 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Editrix products data
+const produits = [
+	{
+		id: 'creator',
+		nom: "Editrix Creator",
+		tagline: "Pour créateurs solo",
+		description: "Montage IA pour créateurs YouTube, TikTok, Shorts et Reels. Automatisation des coupes, sous-titres, formats et exports.",
+		benefices: [
+			"Produire vite et régulièrement",
+			"Automatisation complète",
+			"Multi-formats instantanés",
+			"Idéal pour créateurs solo"
+		],
+		icon: "video"
+	},
+	{
+		id: 'pro',
+		nom: "Editrix Pro",
+		tagline: "Pour freelances et agences",
+		description: "Fonctionnalités avancées : multi-comptes, collaboration en équipe, workflows clients, exports en volume.",
+		benefices: [
+			"Gestion de plusieurs projets",
+			"Collaboration d'équipe",
+			"Exports en volume",
+			"Workflows standardisés"
+		],
+		icon: "briefcase"
+	},
+	{
+		id: 'studio',
+		nom: "Editrix Studio",
+		tagline: "Pour la croissance et les résultats",
+		description: "Analyse prédictive de performance, recommandations IA, historique des performances et comparatifs de vidéos.",
+		benefices: [
+			"Score de performance estimé",
+			"Recommandations IA avancées",
+			"Analyse de rétention",
+			"Optimisation data-driven"
+		],
+		icon: "chart"
+	}
+];
+---
+
+<Layout title="Produits Editrix" description="Découvrez les solutions Editrix pour le montage vidéo IA">
+	<div class="card" style="text-align: center;">
+		<h1>Nos Produits</h1>
+		<p style="font-size: 1.2rem; color: #b0b0b0;">
+			Choisissez l'offre Editrix adaptée à vos besoins
+		</p>
+	</div>
+
+	<div class="products-grid">
+		{produits.map(produit => (
+			<div class="card product-card">
+				<div class="product-icon">
+					{produit.icon === "video" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gradient1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>}
+					{produit.icon === "briefcase" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gradient2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>}
+					{produit.icon === "chart" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#gradient3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>}
+				</div>
+				<div class="product-header">
+					<h2>{produit.nom}</h2>
+					<p class="neon-text">{produit.tagline}</p>
+				</div>
+				<p class="product-description">{produit.description}</p>
+				
+				<div class="product-benefits">
+					<h3>Bénéfices clés :</h3>
+					<ul>
+						{produit.benefices.map(benefice => (
+							<li>
+								<span class="check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+								{benefice}
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<a href={`/products/${produit.id}`} class="button product-cta">
+					En savoir plus
+				</a>
+			</div>
+		))}
+	</div>
+
+	<section class="card" style="text-align: center; margin-top: 2rem;">
+		<h2>Besoin d'aide pour choisir ?</h2>
+		<p style="margin-bottom: 1.5rem;">Notre équipe est là pour vous accompagner</p>
+		<a href="/contact" class="button">Demander une démo</a>
+	</section>
+</Layout>
+
+<style>
+	.products-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+		align-items: stretch;
+	}
+
+	.product-card {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		height: 100%;
+	}
+
+	.product-icon {
+		height: 64px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.product-header {
+		margin-bottom: 1.5rem;
+	}
+
+	.product-header h2 {
+		margin-bottom: 0.5rem;
+	}
+
+	.product-header p {
+		font-weight: 600;
+		margin: 0;
+	}
+
+	.product-description {
+		flex-grow: 1;
+		margin-bottom: 1.5rem;
+		min-height: 80px;
+	}
+
+	.product-benefits {
+		text-align: left;
+		margin-bottom: 1.5rem;
+	}
+
+	.product-benefits h3 {
+		font-size: 1rem;
+		margin-bottom: 0.75rem;
+		text-align: center;
+	}
+
+	.product-benefits ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.product-benefits li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+		padding: 0.5rem 0;
+	}
+
+	.check-icon {
+		color: var(--accent-purple);
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.product-cta {
+		width: 100%;
+		margin-top: auto;
+	}
+
+	@media (max-width: 1024px) {
+		.products-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.products-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.product-description {
+			min-height: auto;
+		}
+	}
+</style>

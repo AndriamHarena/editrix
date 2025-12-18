@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrice des Compétences - Site Montage Vidéo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e0;
+        }
+
+        .legend-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .legend-desc {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .team-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .team-card.selected {
+            border: 3px solid #5a67d8;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background: #ebf4ff;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #5a67d8;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: #5a67d8;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .team-avg {
+            background: #f0fff4;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #22543d;
+        }
+
+        .matrix-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #5a67d8;
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        th.member-header {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .member-name {
+            font-size: 14px;
+        }
+
+        .member-role {
+            font-size: 11px;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        .category-header {
+            background: #ebf4ff;
+            padding: 12px 15px;
+            font-weight: bold;
+            color: #2c5282;
+        }
+
+        .category-avg {
+            background: #f7fafc;
+            font-style: italic;
+            color: #718096;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            color: #2d3748;
+        }
+
+        .skill-cell {
+            text-align: center;
+        }
+
+        .skill-level {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid #cbd5e0;
+        }
+
+        .level-0 { background: #e2e8f0; color: #4a5568; }
+        .level-1 { background: #fed7d7; color: #742a2a; }
+        .level-2 { background: #feebc8; color: #744210; }
+        .level-3 { background: #bee3f8; color: #2c5282; }
+        .level-4 { background: #c6f6d5; color: #22543d; }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .analysis-card h2 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-card ul {
+            list-style: none;
+        }
+
+        .analysis-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .analysis-card li:last-child {
+            border-bottom: none;
+        }
+
+        .icon-check {
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        .icon-arrow {
+            color: #ed8936;
+            font-weight: bold;
+        }
+
+        .stats-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stats-container h2 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: #ebf4ff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #5a67d8;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .stat-rate {
+            font-size: 12px;
+            color: #4a5568;
+            margin-top: 8px;
+        }
+
+        .export-btn {
+            background: #5a67d8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            float: right;
+            transition: background 0.2s;
+        }
+
+        .export-btn:hover {
+            background: #4c51bf;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .export-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <div class="header">
+            <div>
+                <h1>Matrice des Compétences</h1>
+                <p>Projet : Site Innovant pour Montage Vidéo</p>
+            </div>
+            <button class="export-btn" onclick="window.print()">📥 Exporter en PDF</button>
+            
+            <!-- Légende -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box level-0"></div>
+                    <span class="legend-label">Non acquis</span>
+                    <span class="legend-desc">(Aucune expérience)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box level-1"></div>
+                    <span class="legend-label">Débutant</span>
+                    <span class="legend-desc">(Connaissance de base)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box level-2"></div>
+                    <span class="legend-label">Intermédiaire</span>
+                    <span class="legend-desc">(Maîtrise des fondamentaux)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box level-3"></div>
+                    <span class="legend-label">Avancé</span>
+                    <span class="legend-desc">(Expérience confirmée)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box level-4"></div>
+                    <span class="legend-label">Expert</span>
+                    <span class="legend-desc">(Expertise reconnue)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vue d'ensemble équipe -->
+        <div class="team-overview" id="teamOverview"></div>
+
+        <!-- Matrice -->
+        <div class="matrix-container">
+            <div class="table-wrapper">
+                <table id="skillsTable"></table>
+            </div>
+        </div>
+
+        <!-- Analyse -->
+        <div class="analysis-grid">
+            <div class="analysis-card">
+                <h2>💪 Points Forts de l'Équipe</h2>
+                <ul>
+                    <li>
+                        <span class="icon-check">✓</span>
+                        <span><strong>Développement :</strong> Excellence technique avec Baptiste (expert full-stack)</span>
+                    </li>
+                    <li>
+                        <span class="icon-check">✓</span>
+                        <span><strong>Design :</strong> Compétences complètes en UX/UI avec Emmanuel</span>
+                    </li>
+                    <li>
+                        <span class="icon-check">✓</span>
+                        <span><strong>Marketing :</strong> Expertise marché et positionnement avec Elhadj</span>
+                    </li>
+                    <li>
+                        <span class="icon-check">✓</span>
+                        <span><strong>Qualité :</strong> Tests et validation assurés par Laurent</span>
+                    </li>
+                    <li>
+                        <span class="icon-check">✓</span>
+                        <span><strong>Gestion :</strong> Pilotage de projet maîtrisé par Harena</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="analysis-card">
+                <h2>🎯 Axes d'Amélioration</h2>
+                <ul>
+                    <li>
+                        <span class="icon-arrow">→</span>
+                        <span><strong>Compétences croisées :</strong> Renforcer les compétences techniques du chef de projet</span>
+                    </li>
+                    <li>
+                        <span class="icon-arrow">→</span>
+                        <span><strong>Marketing technique :</strong> Former le développeur aux aspects business</span>
+                    </li>
+                    <li>
+                        <span class="icon-arrow">→</span>
+                        <span><strong>Tests design :</strong> Sensibiliser le designer aux tests utilisateurs</span>
+                    </li>
+                    <li>
+                        <span class="icon-arrow">→</span>
+                        <span><strong>Compétences transverses :</strong> Formation RGPD pour toute l'équipe</span>
+                    </li>
+                    <li>
+                        <span class="icon-arrow">→</span>
+                        <span><strong>Polyvalence :</strong> Développer les compétences techniques du QA Engineer</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="stats-container">
+            <h2>📊 Synthèse de l'Équipe</h2>
+            <div class="stats-grid" id="statsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Données
+        const teamMembers = [
+            { id: 0, name: "ANDRIAMANANJARA MANDIMBY Harena", shortName: "Harena", role: "Chef de Projet", rate: 400 },
+            { id: 1, name: "TABAR LABONNE Baptiste", shortName: "Baptiste", role: "Développeur Full-Stack", rate: 450 },
+            { id: 2, name: "ENGONGOMO Emmanuel", shortName: "Emmanuel", role: "UX/UI Designer", rate: 420 },
+            { id: 3, name: "BAH Elhadj Ibrahima", shortName: "Elhadj", role: "Growth Manager", rate: 400 },
+            { id: 4, name: "NOUMEN TEMDIA Laurent Junior", shortName: "Laurent", role: "QA Engineer", rate: 380 }
+        ];
+
+        const skillsCategories = [
+            {
+                category: "Gestion de Projet",
+                skills: [
+                    { name: "Analyse des besoins", key: "analyse_besoins" },
+                    { name: "Planification & Gantt", key: "planification" },
+                    { name: "Gestion des risques", key: "gestion_risques" },
+                    { name: "Documentation projet", key: "documentation" },
+                    { name: "Pilotage & RACI", key: "pilotage" }
+                ]
+            },
+            {
+                category: "Développement",
+                skills: [
+                    { name: "HTML/CSS/JavaScript", key: "frontend" },
+                    { name: "CMS & Backend", key: "backend" },
+                    { name: "Intégration web", key: "integration" },
+                    { name: "Base de données", key: "database" },
+                    { name: "Architecture logicielle", key: "architecture" }
+                ]
+            },
+            {
+                category: "Design & UX/UI",
+                skills: [
+                    { name: "Wireframing", key: "wireframing" },
+                    { name: "Maquettage UI", key: "maquettage" },
+                    { name: "Identité visuelle", key: "identite_visuelle" },
+                    { name: "Charte graphique", key: "charte_graphique" },
+                    { name: "Montage vidéo", key: "montage_video" }
+                ]
+            },
+            {
+                category: "Marketing & Business",
+                skills: [
+                    { name: "Étude de marché", key: "etude_marche" },
+                    { name: "Analyse SWOT", key: "analyse_swot" },
+                    { name: "Positionnement produit", key: "positionnement" },
+                    { name: "Gestion financière", key: "finance" },
+                    { name: "Communication", key: "communication" }
+                ]
+            },
+            {
+                category: "Qualité & Tests",
+                skills: [
+                    { name: "Tests fonctionnels", key: "tests_fonctionnels" },
+                    { name: "Tests de navigation", key: "tests_navigation" },
+                    { name: "Correction technique", key: "correction_tech" },
+                    { name: "RGPD & Conformité", key: "rgpd" },
+                    { name: "Validation finale", key: "validation" }
+                ]
+            }
+        ];
+
+        const skillsMatrix = {
+            0: { analyse_besoins: 4, planification: 4, gestion_risques: 4, documentation: 4, pilotage: 4,
+                 frontend: 1, backend: 1, integration: 1, database: 1, architecture: 2,
+                 wireframing: 2, maquettage: 1, identite_visuelle: 1, charte_graphique: 1, montage_video: 2,
+                 etude_marche: 3, analyse_swot: 4, positionnement: 3, finance: 4, communication: 4,
+                 tests_fonctionnels: 2, tests_navigation: 2, correction_tech: 1, rgpd: 3, validation: 4 },
+            1: { analyse_besoins: 2, planification: 2, gestion_risques: 2, documentation: 3, pilotage: 2,
+                 frontend: 4, backend: 4, integration: 4, database: 4, architecture: 4,
+                 wireframing: 2, maquettage: 2, identite_visuelle: 1, charte_graphique: 1, montage_video: 2,
+                 etude_marche: 1, analyse_swot: 2, positionnement: 3, finance: 2, communication: 3,
+                 tests_fonctionnels: 3, tests_navigation: 3, correction_tech: 4, rgpd: 3, validation: 3 },
+            2: { analyse_besoins: 2, planification: 2, gestion_risques: 1, documentation: 2, pilotage: 1,
+                 frontend: 3, backend: 1, integration: 2, database: 1, architecture: 2,
+                 wireframing: 4, maquettage: 4, identite_visuelle: 4, charte_graphique: 4, montage_video: 4,
+                 etude_marche: 2, analyse_swot: 2, positionnement: 3, finance: 1, communication: 3,
+                 tests_fonctionnels: 2, tests_navigation: 3, correction_tech: 2, rgpd: 2, validation: 3 },
+            3: { analyse_besoins: 3, planification: 2, gestion_risques: 3, documentation: 2, pilotage: 2,
+                 frontend: 1, backend: 1, integration: 1, database: 1, architecture: 1,
+                 wireframing: 2, maquettage: 1, identite_visuelle: 2, charte_graphique: 2, montage_video: 3,
+                 etude_marche: 4, analyse_swot: 4, positionnement: 4, finance: 3, communication: 4,
+                 tests_fonctionnels: 2, tests_navigation: 2, correction_tech: 1, rgpd: 2, validation: 2 },
+            4: { analyse_besoins: 2, planification: 2, gestion_risques: 3, documentation: 3, pilotage: 2,
+                 frontend: 2, backend: 2, integration: 2, database: 2, architecture: 2,
+                 wireframing: 2, maquettage: 1, identite_visuelle: 1, charte_graphique: 1, montage_video: 2,
+                 etude_marche: 1, analyse_swot: 2, positionnement: 2, finance: 1, communication: 3,
+                 tests_fonctionnels: 4, tests_navigation: 4, correction_tech: 4, rgpd: 4, validation: 4 }
+        };
+
+        // Fonctions utilitaires
+        function getAverage(memberId) {
+            const values = Object.values(skillsMatrix[memberId]);
+            return (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);
+        }
+
+        function getCategoryAverage(memberId, skills) {
+            const values = skills.map(s => skillsMatrix[memberId][s.key]);
+            return (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').slice(0, 2);
+        }
+
+        // Générer les cartes d'équipe
+        function generateTeamOverview() {
+            const container = document.getElementById('teamOverview');
+            teamMembers.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'team-card';
+                card.innerHTML = `
+                    <div class="avatar">${getInitials(member.name)}</div>
+                    <div class="team-name">${member.shortName}</div>
+                    <div class="team-role">${member.role}</div>
+                    <div class="team-avg">Moyenne: ${getAverage(member.id)}/4</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Générer la table
+        function generateTable() {
+            const table = document.getElementById('skillsTable');
+            
+            // En-tête
+            let headerHTML = '<thead><tr><th>Compétences</th>';
+            teamMembers.forEach(member => {
+                headerHTML += `<th class="member-header">
+                    <div class="member-name">${member.shortName}</div>
+                    <div class="member-role">${member.role}</div>
+                </th>`;
+            });
+            headerHTML += '</tr></thead><tbody>';
+            
+            // Corps
+            let bodyHTML = '';
+            skillsCategories.forEach(category => {
+                // En-tête catégorie
+                bodyHTML += `<tr><td colspan="${teamMembers.length + 1}" class="category-header">${category.category}</td></tr>`;
+                
+                // Moyenne catégorie
+                bodyHTML += '<tr class="category-avg"><td>Moyenne catégorie</td>';
+                teamMembers.forEach(member => {
+                    bodyHTML += `<td class="skill-cell"><strong>${getCategoryAverage(member.id, category.skills)}/4</strong></td>`;
+                });
+                bodyHTML += '</tr>';
+                
+                // Compétences
+                category.skills.forEach(skill => {
+                    bodyHTML += `<tr><td class="skill-name">${skill.name}</td>`;
+                    teamMembers.forEach(member => {
+                        const level = skillsMatrix[member.id][skill.key];
+                        bodyHTML += `<td class="skill-cell"><span class="skill-level level-${level}">${level}</span></td>`;
+                    });
+                    bodyHTML += '</tr>';
+                });
+            });
+            
+            bodyHTML += '</tbody>';
+            table.innerHTML = headerHTML + bodyHTML;
+        }
+
+        // Générer les stats
+        function generateStats() {
+            const container = document.getElementById('statsGrid');
+            teamMembers.forEach(member => {
+                const stat = document.createElement('div');
+                stat.className = 'stat-card';
+                stat.innerHTML = `
+                    <div class="stat-name">${member.shortName}</div>
+                    <div class="stat-value">${getAverage(member.id)}</div>
+                    <div class="stat-label">Niveau moyen</div>
+                    <div class="stat-rate">${member.rate}€/jour</div>
+                `;
+                container.appendChild(stat);
+            });
+        }
+
+        // Initialisation
+        generateTeamOverview();
+        generateTable();
+        generateStats();
+    </script>
+</body>
+</html>

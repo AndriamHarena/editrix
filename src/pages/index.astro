@@ -1,0 +1,192 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LiquidEther from "../components/LiquidEther.tsx";
+---
+
+<Layout
+	title="Editrix - Le co-monteur vidéo IA"
+	description="Editrix, le co-monteur vidéo IA pour YouTube, TikTok, Shorts et Reels"
+>
+	<div
+		slot="hero"
+		style="position: relative; width: 100%; height: 100vh; overflow: hidden; margin: 0; padding: 0;"
+	>
+		<LiquidEther
+			colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
+			mouseForce={20}
+			cursorSize={100}
+			isViscous={false}
+			viscous={30}
+			iterationsViscous={32}
+			iterationsPoisson={32}
+			resolution={0.5}
+			isBounce={false}
+			autoDemo={true}
+			autoSpeed={0.5}
+			autoIntensity={2.2}
+			takeoverDuration={0.25}
+			autoResumeDelay={3000}
+			autoRampDuration={0.6}
+			client:load
+		/>
+		<div
+			style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; z-index: 10;"
+		>
+			<h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Editrix</h1>
+			<p style="font-size: 1.5rem; margin-bottom: 1rem;">
+				Le co-monteur vidéo IA pour YouTube, TikTok, Shorts et Reels
+			</p>
+			<p style="font-size: 1.1rem; margin-bottom: 2rem;">
+				Création plus rapide · Formats optimisés · Performance pilotée
+				par la donnée
+			</p>
+			<div
+				style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;"
+			>
+				<a href="/contact" class="button">Demander une démo</a>
+				<a href="/products" class="button button-secondary"
+					>Découvrir les produits</a
+				>
+			</div>
+		</div>
+	</div>
+
+	<!-- Pour qui / Pourquoi -->
+	<section class="card">
+		<h2 style="text-align: center; margin-bottom: 2rem;">Pour qui ?</h2>
+		<div
+			style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;"
+		>
+			<div style="text-align: center;">
+				<h3 class="neon-text">Créateurs de contenu</h3>
+				<p>
+					YouTube, TikTok, Reels : produisez plus vite, publiez
+					régulièrement
+				</p>
+			</div>
+			<div style="text-align: center;">
+				<h3 class="neon-text">Freelances</h3>
+				<p>
+					Gagnez du temps, gérez plus de clients, automatisez vos
+					workflows
+				</p>
+			</div>
+			<div style="text-align: center;">
+				<h3 class="neon-text">Agences</h3>
+				<p>
+					Production en volume, collaboration d'équipe, cohérence
+					multi-plateformes
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Ce que ça change -->
+	<section class="card">
+		<h2 style="text-align: center; margin-bottom: 2rem;">
+			Ce que ça change
+		</h2>
+		<div
+			style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;"
+		>
+			<div>
+				<h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-3px;margin-right:8px;color:var(--accent-purple)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Réduction du temps de montage</h3>
+				<p>
+					L'IA analyse votre contenu et génère automatiquement un
+					rough-cut optimisé
+				</p>
+			</div>
+			<div>
+				<h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-3px;margin-right:8px;color:var(--accent-purple)"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>Automatisation des tâches répétitives</h3>
+				<p>
+					Sous-titres, coupes, transitions : laissez l'IA s'occuper du
+					fastidieux
+				</p>
+			</div>
+			<div>
+				<h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-3px;margin-right:8px;color:var(--accent-purple)"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>Adaptation automatique aux plateformes</h3>
+				<p>
+					Un montage, plusieurs formats : 9:16, 16:9, 1:1 générés
+					instantanément
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Aperçu produit -->
+	<section class="card" style="text-align: center;">
+		<h2 style="margin-bottom: 2rem;">L'interface Editrix</h2>
+		<div
+			style="background: rgba(255, 51, 153, 0.1); padding: 4rem 2rem; border-radius: 16px; border: 1px solid rgba(255, 51, 153, 0.2);"
+		>
+			<p style="font-size: 1.2rem; color: #888;">
+				Aperçu de l'interface de montage<br />
+				<small>(captures d'écran et démos à venir)</small>
+			</p>
+		</div>
+	</section>
+
+	<!-- Aperçu PUB -->
+	<section class="card" style="text-align: center;">
+		<h2 style="margin-bottom: 2rem;">PUB</h2>
+			<video
+				id="pub-video"
+				src="/vid/pub.mp4"
+				controls
+				muted
+				style="width: 100%; max-width: 600px; max-height: 500px; border-radius: 8px;"
+			>
+				Votre navigateur ne supporte pas la lecture de vidéos.
+			</video>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="card" style="text-align: center; padding: 3rem 2rem;">
+		<h2 style="margin-bottom: 1.5rem;">
+			Prêt à révolutionner votre montage vidéo ?
+		</h2>
+		<p style="margin-bottom: 2rem; font-size: 1.1rem;">
+			Rejoignez les créateurs qui produisent plus vite et mieux avec
+			Editrix
+		</p>
+		<div
+			style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;"
+		>
+			<a href="/contact" class="button">Demander un accès anticipé</a>
+			<a href="/products" class="button button-secondary"
+				>Voir les offres</a
+			>
+		</div>
+	</section>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const video = document.getElementById("pub-video");
+			if (video) {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							video
+								.play()
+								.catch((e) => console.log("Autoplay blocked"));
+						} else {
+							video.pause();
+						}
+					});
+				});
+				observer.observe(video);
+			}
+		});
+	</script>
+</Layout>
+
+<style>
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 2rem !important;
+		}
+		.card {
+			padding: 2rem 1rem !important;
+		}
+	}
+</style>

@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Contact - Editrix" description="Contactez l'équipe Editrix">
+	<div class="card" style="text-align: center;">
+		<h1>Contactez-nous</h1>
+		<p style="font-size: 1.2rem; color: #b0b0b0;">
+			Une question ? Un projet ? Parlons-en !
+		</p>
+	</div>
+
+	<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+		<div class="card">
+			<h2>Envoyez-nous un message</h2>
+			<p style="margin-bottom: 2rem;">Remplissez le formulaire ci-dessous et nous vous répondrons rapidement</p>
+			
+			<form method="POST" action="/api/contact">
+				<div>
+					<label for="nom">Nom complet *</label>
+					<input type="text" id="nom" name="nom" required placeholder="John Doe" />
+				</div>
+
+				<div>
+					<label for="email">Email *</label>
+					<input type="email" id="email" name="email" required placeholder="john@exemple.com" />
+				</div>
+
+				<div>
+					<label for="telephone">Téléphone</label>
+					<input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" />
+				</div>
+
+				<div>
+					<label for="motif">Motif de contact *</label>
+					<select id="motif" name="motif" required>
+						<option value="">Sélectionnez un motif</option>
+						<option value="demo">Demander une démo</option>
+						<option value="early-access">Accès anticipé / Early access</option>
+						<option value="devis">Demander un devis</option>
+						<option value="partenariat">Partenariat</option>
+						<option value="support">Support / Assistance</option>
+						<option value="presse">Presse / Média</option>
+						<option value="autre">Autre</option>
+					</select>
+				</div>
+
+				<div>
+					<label for="message">Message *</label>
+					<textarea id="message" name="message" rows="6" required placeholder="Décrivez votre besoin ou votre question..."></textarea>
+				</div>
+
+				<div style="margin-bottom: 1.5rem;">
+					<label style="display: flex; align-items: flex-start; gap: 0.5rem; font-weight: normal; cursor: pointer;">
+						<input type="checkbox" name="rgpd" required style="width: auto; margin-top: 0.25rem; cursor: pointer;" />
+						<span>
+							J'accepte que mes données personnelles soient collectées et traitées conformément à la 
+							<a href="//legal/politique-confidentialite" style="color: #ff3399; text-decoration: underline;">politique de confidentialité</a>. 
+							Vous pouvez exercer vos droits (accès, rectification, suppression) en nous contactant. *
+						</span>
+					</label>
+				</div>
+
+				<button type="submit">Envoyer le message</button>
+			</form>
+		</div>
+
+		<div>
+			<div class="card">
+				<h2>Informations de contact</h2>
+				<div style="margin-bottom: 1.5rem;">
+					<h3 style="font-size: 1rem; color: var(--accent-purple); margin-bottom: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Email</h3>
+					<p>contact@editrix.com</p>
+				</div>
+				<div style="margin-bottom: 1.5rem;">
+					<h3 style="font-size: 1rem; color: var(--accent-purple); margin-bottom: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Disponibilité</h3>
+					<p>Lundi - Vendredi : 9h - 18h (CET)</p>
+				</div>
+				<div>
+					<h3 style="font-size: 1rem; color: var(--accent-purple); margin-bottom: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Temps de réponse</h3>
+					<p>Nous nous engageons à répondre sous 24h ouvrées</p>
+				</div>
+			</div>
+
+			<div class="card">
+				<h2>Besoin d'aide ?</h2>
+				<p style="margin-bottom: 1rem;">Consultez notre FAQ pour trouver rapidement des réponses</p>
+				<a href="/faq" class="button button-secondary" style="width: 100%; text-align: center; display: block;">
+					Voir la FAQ
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="card" style="text-align: center;">
+		<h2>Vous êtes :</h2>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+			<div style="padding: 1.5rem; background: rgba(255, 51, 153, 0.05); border-radius: 12px; border: 1px solid rgba(255, 51, 153, 0.1);">
+				<h3 style="margin-bottom: 0.5rem;">Créateur de contenu</h3>
+				<p style="margin-bottom: 1rem; font-size: 0.9rem;">Découvrez Editrix Creator</p>
+				<a href="/products/creator" style="color: #ff3399; text-decoration: underline;">En savoir plus →</a>
+			</div>
+			<div style="padding: 1.5rem; background: rgba(255, 51, 153, 0.05); border-radius: 12px; border: 1px solid rgba(255, 51, 153, 0.1);">
+				<h3 style="margin-bottom: 0.5rem;">Freelance / Agence</h3>
+				<p style="margin-bottom: 1rem; font-size: 0.9rem;">Découvrez Editrix Pro</p>
+				<a href="/products/pro" style="color: #ff3399; text-decoration: underline;">En savoir plus →</a>
+			</div>
+			<div style="padding: 1.5rem; background: rgba(255, 51, 153, 0.05); border-radius: 12px; border: 1px solid rgba(255, 51, 153, 0.1);">
+				<h3 style="margin-bottom: 0.5rem;">Studio / Marque</h3>
+				<p style="margin-bottom: 1rem; font-size: 0.9rem;">Découvrez Editrix Studio</p>
+				<a href="/products/studio" style="color: #ff3399; text-decoration: underline;">En savoir plus →</a>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	@media (max-width: 768px) {
+		div[style*="grid-template-columns: 1fr 1fr"] {
+			grid-template-columns: 1fr !important;
+		}
+	}
+</style>

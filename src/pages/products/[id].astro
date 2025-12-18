@@ -1,0 +1,232 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Définir le type pour un produit
+interface Product {
+	nom: string;
+	tagline: string;
+	description: string;
+	prix: string;
+	video: string;
+	image: string;
+	benefices: string[];
+	icon: string;
+}
+
+// Récupérer l'ID depuis l'URL
+const { id } = Astro.params;
+
+// Données de produits (en production, cela viendrait d'une API ou base de données)
+const produits: Record<string, Product> = {
+	"creator": {
+		nom: "Editrix Creator",
+		tagline: "Pour créateurs solo",
+		description: "Montage IA pour créateurs YouTube, TikTok, Shorts et Reels. Automatisation des coupes, sous-titres, formats et exports.",
+		prix: "29.99€/mois",
+		video: "https://www.w3schools.com/html/mov_bbb.mp4",
+		image: "https://via.placeholder.com/600x400?text=Editrix+Creator",
+		benefices: [
+			"Produire vite et régulièrement",
+			"Automatisation complète",
+			"Multi-formats instantanés",
+			"Idéal pour créateurs solo"
+		],
+		icon: "video"
+	},
+	"pro": {
+		nom: "Editrix Pro",
+		tagline: "Pour freelances et agences",
+		description: "Fonctionnalités avancées : multi-comptes, collaboration en équipe, workflows clients, exports en volume.",
+		prix: "79.99€/mois",
+		video: "https://www.w3schools.com/html/movie.mp4",
+		image: "https://via.placeholder.com/600x400?text=Editrix+Pro",
+		benefices: [
+			"Gestion de plusieurs projets",
+			"Collaboration d'équipe",
+			"Exports en volume",
+			"Workflows standardisés"
+		],
+		icon: "briefcase"
+	},
+	"studio": {
+		nom: "Editrix Studio",
+		tagline: "Pour la croissance et les résultats",
+		description: "Analyse prédictive de performance, recommandations IA, historique des performances et comparatifs de vidéos.",
+		prix: "149.99€/mois",
+		video: "https://www.w3schools.com/html/mov_bbb.mp4",
+		image: "https://via.placeholder.com/600x400?text=Editrix+Studio",
+		benefices: [
+			"Score de performance estimé",
+			"Recommandations IA avancées",
+			"Analyse de rétention",
+			"Optimisation data-driven"
+		],
+		icon: "chart"
+	}
+};
+
+const produit = produits[id];
+
+// Si le produit n'existe pas, rediriger vers la page des produits
+if (!produit) {
+	return Astro.redirect('/products');
+}
+
+export function getStaticPaths() {
+	return [
+		{ params: { id: "creator" } },
+		{ params: { id: "pro" } },
+		{ params: { id: "studio" } }
+	];
+}
+---
+
+<Layout title={`${produit.nom} - Editrix`} description={produit.description}>
+	<nav class="breadcrumb">
+		<a href="/">Accueil</a>
+		<span class="separator">/</span>
+		<a href="/products">Produits</a>
+		<span class="separator">/</span>
+		<span class="current">{produit.nom}</span>
+	</nav>
+
+	<div class="card">
+		<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+			<div>
+				<img src={produit.image} alt={produit.nom} style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+				
+				<video controls style="width: 100%; border-radius: 8px;">
+					<source src={produit.video} type="video/mp4" />
+					Votre navigateur ne supporte pas la lecture de vidéos.
+				</video>
+			</div>
+
+			<div>
+				<div class="product-detail-icon">
+					{produit.icon === "video" && <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#detailGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="detailGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>}
+					{produit.icon === "briefcase" && <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#detailGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="detailGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>}
+					{produit.icon === "chart" && <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#detailGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="detailGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>}
+				</div>
+				<h1>{produit.nom}</h1>
+				<p class="neon-text" style="font-weight: 600; margin-bottom: 1rem;">{produit.tagline}</p>
+				<p class="product-price">{produit.prix}</p>
+				
+				<p style="margin-bottom: 2rem;">{produit.description}</p>
+
+				<h3>Bénéfices clés :</h3>
+				<ul class="benefits-list">
+					{produit.benefices.map(benefice => (
+						<li>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+							{benefice}
+						</li>
+					))}
+				</ul>
+
+				<div class="product-actions">
+					<a href="/contact" class="button">Demander une démo</a>
+					<a href="/pricing" class="button button-secondary">Voir les tarifs</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<h2>Description détaillée</h2>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore 
+			et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+			aliquip ex ea commodo consequat.
+		</p>
+		<p>
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+	</div>
+</Layout>
+
+<style>
+	.breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 1.5rem;
+		font-size: 0.9rem;
+	}
+
+	.breadcrumb a {
+		color: var(--text-tertiary);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.breadcrumb a:hover {
+		color: var(--accent-purple);
+	}
+
+	.breadcrumb .separator {
+		color: var(--text-muted);
+	}
+
+	.breadcrumb .current {
+		color: var(--text-primary);
+		font-weight: 500;
+	}
+
+	.product-detail-icon {
+		margin-bottom: 1.5rem;
+	}
+
+	.product-price {
+		font-size: 2rem;
+		font-weight: 700;
+		background: var(--gradient-primary);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin-bottom: 1rem;
+	}
+
+	.benefits-list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 2rem 0;
+	}
+
+	.benefits-list li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.5rem 0;
+	}
+
+	.benefits-list svg {
+		flex-shrink: 0;
+	}
+
+	.product-actions {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.product-actions .button {
+		flex: 1;
+		text-align: center;
+		min-width: 150px;
+	}
+
+	@media (max-width: 768px) {
+		div[style*="grid-template-columns: 1fr 1fr"] {
+			grid-template-columns: 1fr !important;
+		}
+
+		.product-actions {
+			flex-direction: column;
+		}
+
+		.product-actions .button {
+			width: 100%;
+		}
+	}
+</style>

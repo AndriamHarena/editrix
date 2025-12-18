@@ -1,0 +1,1268 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Editrix - Le co-monteur vidéo IA pour YouTube, TikTok, Shorts et Reels" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<!-- Google Fonts - Inter -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<style is:global>
+			/* ============================================
+			   EDITRIX - Ultra Premium SaaS Theme
+			   Next-Gen Startup Landing Page Design
+			   ============================================ */
+
+			:root {
+				/* Core palette - Rich & Modern */
+				--black: #000000;
+				--bg-primary: #0a0a0b;
+				--bg-secondary: #111113;
+				--bg-tertiary: #18181b;
+				--bg-card: rgba(24, 24, 27, 0.6);
+				
+				/* Text hierarchy */
+				--text-primary: #fafafa;
+				--text-secondary: #a1a1aa;
+				--text-tertiary: #71717a;
+				--text-muted: #52525b;
+				
+				/* Brand gradient */
+				--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+				--gradient-secondary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+				--gradient-accent: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+				--gradient-mesh: 
+					radial-gradient(at 40% 20%, hsla(280,100%,74%,0.15) 0px, transparent 50%),
+					radial-gradient(at 80% 0%, hsla(189,100%,56%,0.12) 0px, transparent 50%),
+					radial-gradient(at 0% 50%, hsla(355,100%,93%,0.08) 0px, transparent 50%),
+					radial-gradient(at 80% 50%, hsla(340,100%,76%,0.1) 0px, transparent 50%),
+					radial-gradient(at 0% 100%, hsla(269,100%,77%,0.12) 0px, transparent 50%),
+					radial-gradient(at 80% 100%, hsla(180,100%,50%,0.08) 0px, transparent 50%);
+				
+				/* Accent colors */
+				--accent-purple: #8b5cf6;
+				--accent-pink: #ec4899;
+				--accent-blue: #3b82f6;
+				--accent-cyan: #06b6d4;
+				--accent-green: #10b981;
+				
+				/* Glass */
+				--glass-bg: rgba(255, 255, 255, 0.03);
+				--glass-border: rgba(255, 255, 255, 0.06);
+				--glass-border-light: rgba(255, 255, 255, 0.1);
+				
+				/* Spacing scale */
+				--space-xs: 0.25rem;
+				--space-sm: 0.5rem;
+				--space-md: 1rem;
+				--space-lg: 1.5rem;
+				--space-xl: 2rem;
+				--space-2xl: 3rem;
+				--space-3xl: 4rem;
+				--space-4xl: 6rem;
+				
+				/* Radius */
+				--radius-sm: 8px;
+				--radius-md: 12px;
+				--radius-lg: 16px;
+				--radius-xl: 24px;
+				--radius-2xl: 32px;
+				--radius-full: 9999px;
+				
+				/* Animation */
+				--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+				--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+				--duration-fast: 150ms;
+				--duration-base: 250ms;
+				--duration-slow: 400ms;
+			}
+
+			*, *::before, *::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+
+			body {
+				font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+				background: var(--bg-primary);
+				color: var(--text-secondary);
+				line-height: 1.7;
+				min-height: 100vh;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				text-rendering: optimizeLegibility;
+				overflow-x: hidden;
+				cursor: none;
+			}
+
+			/* ============================================
+			   CUSTOM CURSOR - WOW Effect
+			   ============================================ */
+			.cursor {
+				pointer-events: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 99999;
+				mix-blend-mode: difference;
+			}
+
+			.cursor-dot {
+				width: 8px;
+				height: 8px;
+				background: #fff;
+				border-radius: 50%;
+				transform: translate(-50%, -50%);
+				transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+			}
+
+			.cursor-ring {
+				width: 40px;
+				height: 40px;
+				border: 2px solid rgba(255, 255, 255, 0.5);
+				border-radius: 50%;
+				transform: translate(-50%, -50%);
+				transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+			}
+
+			.cursor-dot.hovering {
+				transform: translate(-50%, -50%) scale(2);
+				background: var(--accent-purple);
+			}
+
+			.cursor-ring.hovering {
+				width: 60px;
+				height: 60px;
+				border-color: var(--accent-purple);
+			}
+
+			.cursor-ring.clicking {
+				transform: translate(-50%, -50%) scale(0.8);
+			}
+
+			/* Hide custom cursor on touch devices */
+			@media (hover: none) and (pointer: coarse) {
+				body { cursor: auto; }
+				.cursor { display: none; }
+			}
+
+			/* Animated mesh gradient background */
+			body::before {
+				content: "";
+				position: fixed;
+				inset: 0;
+				background: var(--gradient-mesh);
+				z-index: -2;
+				animation: meshFloat 25s ease-in-out infinite;
+			}
+
+			@keyframes meshFloat {
+				0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+				33% { transform: scale(1.05) rotate(1deg); opacity: 0.9; }
+				66% { transform: scale(0.98) rotate(-1deg); opacity: 1; }
+			}
+
+			/* Floating orbs */
+			body::after {
+				content: "";
+				position: fixed;
+				width: 600px;
+				height: 600px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+				top: -200px;
+				right: -200px;
+				z-index: -1;
+				animation: orbFloat 20s ease-in-out infinite;
+				pointer-events: none;
+			}
+
+			@keyframes orbFloat {
+				0%, 100% { transform: translate(0, 0) scale(1); }
+				50% { transform: translate(-50px, 50px) scale(1.1); }
+			}
+
+			/* Container */
+			.container {
+				max-width: 1280px;
+				margin: 0 auto;
+				padding: 0 var(--space-xl);
+			}
+
+			/* ============================================
+			   HEADER & NAVIGATION - Ultra Clean
+			   ============================================ */
+			header {
+				padding: var(--space-lg) 0;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 1000;
+				transition: all var(--duration-base) var(--ease-out);
+			}
+
+			header::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: rgba(10, 10, 11, 0.8);
+				backdrop-filter: blur(20px) saturate(180%);
+				-webkit-backdrop-filter: blur(20px) saturate(180%);
+				border-bottom: 1px solid var(--glass-border);
+				opacity: 0;
+				transition: opacity var(--duration-base) var(--ease-out);
+			}
+
+			header.scrolled::before {
+				opacity: 1;
+			}
+
+			nav {
+				position: relative;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: var(--space-xl);
+				padding: var(--space-sm) var(--space-lg);
+				background: rgba(255, 255, 255, 0.03);
+				backdrop-filter: blur(20px);
+				-webkit-backdrop-filter: blur(20px);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-full);
+				transition: all var(--duration-base) var(--ease-out);
+			}
+
+			nav:hover {
+				background: rgba(255, 255, 255, 0.05);
+				border-color: var(--glass-border-light);
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+			}
+
+			nav ul {
+				display: flex;
+				list-style: none;
+				gap: var(--space-xs);
+				align-items: center;
+			}
+
+			nav a {
+				color: var(--text-secondary);
+				text-decoration: none;
+				padding: var(--space-sm) var(--space-md);
+				border-radius: var(--radius-full);
+				font-size: 0.875rem;
+				font-weight: 500;
+				letter-spacing: -0.01em;
+				transition: all var(--duration-fast) var(--ease-out);
+				position: relative;
+			}
+
+			nav a:hover {
+				color: var(--text-primary);
+				background: rgba(255, 255, 255, 0.06);
+			}
+
+			.logo {
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				transition: transform var(--duration-fast) var(--ease-spring);
+			}
+
+			.logo:hover {
+				transform: scale(1.05);
+			}
+
+			.logo img {
+				height: 40px;
+				width: auto;
+			}
+
+			/* ============================================
+			   MAIN CONTENT
+			   ============================================ */
+			main {
+				min-height: 100vh;
+				padding: calc(100px + var(--space-3xl)) 0 var(--space-4xl);
+				position: relative;
+			}
+
+			/* ============================================
+			   FOOTER - Minimal & Elegant
+			   ============================================ */
+			footer {
+				background: var(--bg-secondary);
+				border-top: 1px solid var(--glass-border);
+				padding: var(--space-3xl) 0 var(--space-xl);
+				margin-top: var(--space-4xl);
+				position: relative;
+			}
+
+			footer::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 200px;
+				height: 1px;
+				background: var(--gradient-primary);
+				opacity: 0.5;
+			}
+
+			.footer-links {
+				display: flex;
+				justify-content: center;
+				gap: var(--space-xl);
+				flex-wrap: wrap;
+				margin-bottom: var(--space-xl);
+			}
+
+			.footer-links a {
+				color: var(--text-tertiary);
+				text-decoration: none;
+				font-size: 0.875rem;
+				font-weight: 500;
+				transition: color var(--duration-fast) var(--ease-out);
+			}
+
+			.footer-links a:hover {
+				color: var(--text-primary);
+			}
+
+			/* ============================================
+			   BUTTONS - Premium Style
+			   ============================================ */
+			button, .button {
+				background: var(--gradient-primary);
+				color: white;
+				border: none;
+				padding: var(--space-md) var(--space-xl);
+				border-radius: var(--radius-full);
+				cursor: pointer;
+				font-family: inherit;
+				font-size: 0.9375rem;
+				font-weight: 600;
+				letter-spacing: -0.01em;
+				text-decoration: none;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: var(--space-sm);
+				transition: all var(--duration-base) var(--ease-out);
+				box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+				position: relative;
+				overflow: hidden;
+			}
+
+			button:hover, .button:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+				filter: brightness(1.1);
+			}
+
+			button:active, .button:active {
+				transform: translateY(0) scale(0.98);
+			}
+
+			.button-secondary {
+				background: transparent;
+				border: 1px solid var(--glass-border-light);
+				color: var(--text-primary);
+				box-shadow: none;
+			}
+
+			.button-secondary:hover {
+				background: rgba(255, 255, 255, 0.05);
+				border-color: rgba(255, 255, 255, 0.2);
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+			}
+
+			/* ============================================
+			   FORM ELEMENTS - Clean & Modern
+			   ============================================ */
+			input, textarea, select {
+				width: 100%;
+				padding: var(--space-md) var(--space-lg);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-lg);
+				font-family: inherit;
+				font-size: 1rem;
+				margin-bottom: var(--space-md);
+				background: var(--bg-tertiary);
+				color: var(--text-primary);
+				transition: all var(--duration-fast) var(--ease-out);
+			}
+
+			input:focus, textarea:focus, select:focus {
+				outline: none;
+				border-color: var(--accent-purple);
+				box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+				background: var(--bg-secondary);
+			}
+
+			input::placeholder, textarea::placeholder {
+				color: var(--text-muted);
+			}
+
+			label {
+				display: block;
+				margin-bottom: var(--space-sm);
+				font-weight: 500;
+				color: var(--text-secondary);
+				font-size: 0.875rem;
+			}
+
+			select {
+				cursor: pointer;
+				appearance: none;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				background-position: right 1rem center;
+				padding-right: 3rem;
+			}
+
+			select option {
+				background: var(--bg-tertiary);
+				color: var(--text-primary);
+			}
+
+			/* ============================================
+			   CARDS - Stunning Glass Panels
+			   ============================================ */
+			.card {
+				background: var(--bg-card);
+				backdrop-filter: blur(20px);
+				-webkit-backdrop-filter: blur(20px);
+				border: 1px solid var(--glass-border);
+				padding: var(--space-2xl);
+				border-radius: var(--radius-2xl);
+				margin-bottom: var(--space-xl);
+				transition: all var(--duration-base) var(--ease-out);
+				position: relative;
+			}
+
+			.card::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				border-radius: inherit;
+				padding: 1px;
+				background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent 50%, transparent 50%, rgba(255,255,255,0.05));
+				-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+				-webkit-mask-composite: xor;
+				mask-composite: exclude;
+				pointer-events: none;
+			}
+
+			.card:hover {
+				border-color: var(--glass-border-light);
+				transform: translateY(-4px);
+				box-shadow: 
+					0 20px 40px rgba(0, 0, 0, 0.3),
+					0 0 60px rgba(139, 92, 246, 0.08);
+			}
+
+			/* Popular card - Featured/highlighted */
+			.popular-card {
+				background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.05));
+				border-color: rgba(139, 92, 246, 0.3);
+			}
+
+			.popular-card::after {
+				content: "";
+				position: absolute;
+				top: -1px;
+				left: 20%;
+				right: 20%;
+				height: 2px;
+				background: var(--gradient-primary);
+				border-radius: var(--radius-full);
+			}
+
+			/* ============================================
+			   TYPOGRAPHY - Premium Hierarchy
+			   ============================================ */
+			h1, h2, h3, h4, h5, h6 {
+				color: var(--text-primary);
+				font-weight: 700;
+				letter-spacing: -0.03em;
+				line-height: 1.15;
+				margin-bottom: var(--space-md);
+			}
+
+			h1 {
+				font-size: clamp(2.5rem, 6vw, 4.5rem);
+				font-weight: 800;
+				background: linear-gradient(135deg, #fff 0%, #fff 40%, var(--accent-purple) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				line-height: 1.05;
+			}
+
+			h2 {
+				font-size: clamp(1.75rem, 4vw, 2.75rem);
+			}
+
+			h3 {
+				font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+				font-weight: 600;
+			}
+
+			p {
+				margin-bottom: var(--space-md);
+				color: var(--text-secondary);
+				line-height: 1.7;
+				font-size: 1.0625rem;
+			}
+
+			a {
+				color: var(--accent-purple);
+				text-decoration: none;
+				transition: color var(--duration-fast) var(--ease-out);
+			}
+
+			a:hover {
+				color: var(--accent-pink);
+			}
+
+			/* ============================================
+			   UTILITY CLASSES
+			   ============================================ */
+			.neon-text {
+				background: var(--gradient-primary);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+
+			.neon-glow {
+				filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
+			}
+
+			/* ============================================
+			   SECTIONS
+			   ============================================ */
+			section {
+				position: relative;
+				padding: var(--space-3xl) 0;
+			}
+
+			section + section {
+				border-top: 1px solid var(--glass-border);
+			}
+
+			/* ============================================
+			   FAQ ITEMS
+			   ============================================ */
+			.faq-item {
+				background: var(--bg-secondary);
+				border: 1px solid var(--glass-border);
+				transition: all var(--duration-fast) var(--ease-out);
+			}
+
+			.faq-item:hover {
+				border-color: var(--glass-border-light);
+				transform: translateY(-2px);
+			}
+
+			/* ============================================
+			   LISTS & MISC
+			   ============================================ */
+			ul {
+				list-style: none;
+			}
+
+			li {
+				color: var(--text-secondary);
+			}
+
+			img, video {
+				border-radius: var(--radius-xl);
+			}
+
+			video {
+				box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+			}
+
+			/* ============================================
+			   SELECTION
+			   ============================================ */
+			::selection {
+				background: rgba(139, 92, 246, 0.4);
+				color: #fff;
+			}
+
+			/* ============================================
+			   FOCUS STATES
+			   ============================================ */
+			*:focus-visible {
+				outline: none;
+				box-shadow: 0 0 0 2px var(--accent-purple), 0 0 0 4px rgba(139, 92, 246, 0.2);
+			}
+
+			/* ============================================
+			   SCROLLBAR - Minimal
+			   ============================================ */
+			::-webkit-scrollbar {
+				width: 6px;
+				height: 6px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: var(--text-muted);
+				border-radius: var(--radius-full);
+			}
+
+			::-webkit-scrollbar-thumb:hover {
+				background: var(--text-tertiary);
+			}
+
+			/* ============================================
+			   RESPONSIVE
+			   ============================================ */
+			@media (max-width: 1024px) {
+				main {
+					padding-top: calc(80px + var(--space-2xl));
+				}
+			}
+
+			@media (max-width: 768px) {
+				.container {
+					padding: 0 var(--space-md);
+				}
+
+				.card {
+					padding: var(--space-lg);
+					border-radius: var(--radius-xl);
+				}
+
+				button, .button {
+					padding: var(--space-sm) var(--space-lg);
+					font-size: 0.875rem;
+					width: 100%;
+				}
+
+				nav {
+					flex-direction: column;
+					border-radius: var(--radius-xl);
+					padding: var(--space-md);
+				}
+
+				nav ul {
+					flex-wrap: wrap;
+					justify-content: center;
+					gap: var(--space-xs);
+				}
+
+				nav a {
+					padding: var(--space-xs) var(--space-sm);
+					font-size: 0.8rem;
+				}
+
+				section {
+					padding: var(--space-2xl) 0;
+				}
+			}
+
+			/* ============================================
+			   REDUCED MOTION
+			   ============================================ */
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					animation-duration: 0.01ms !important;
+					animation-iteration-count: 1 !important;
+					transition-duration: 0.01ms !important;
+				}
+			}
+
+			/* ============================================
+			   LIQUID ETHER COMPONENT
+			   ============================================ */
+			.liquid-ether-container {
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				touch-action: none;
+			}
+
+
+			/* ============================================
+			   BADGE / PILL
+			   ============================================ */
+			.badge {
+				display: inline-flex;
+				align-items: center;
+				gap: var(--space-xs);
+				padding: var(--space-xs) var(--space-md);
+				background: rgba(139, 92, 246, 0.15);
+				border: 1px solid rgba(139, 92, 246, 0.3);
+				border-radius: var(--radius-full);
+				font-size: 0.75rem;
+				font-weight: 600;
+				color: var(--accent-purple);
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+
+			/* ============================================
+			   GLOW EFFECTS
+			   ============================================ */
+			.glow-purple {
+				box-shadow: 0 0 60px rgba(139, 92, 246, 0.2);
+			}
+
+			.glow-pink {
+				box-shadow: 0 0 60px rgba(236, 72, 153, 0.2);
+			}
+
+			.glow-blue {
+				box-shadow: 0 0 60px rgba(59, 130, 246, 0.2);
+			}
+
+			/* ============================================
+			   REVEAL ANIMATIONS
+			   ============================================ */
+			.reveal-on-scroll {
+				opacity: 0;
+				transform: translateY(20px);
+				transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+			}
+
+			.reveal-on-scroll.revealed {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* ============================================
+			   AUTH MODAL - Premium Glass Login/Signup
+			   ============================================ */
+			.auth-overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.8);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				z-index: 9999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				visibility: hidden;
+				transition: all var(--duration-base) var(--ease-out);
+			}
+
+			.auth-overlay.active {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.auth-modal {
+				position: relative;
+				width: 100%;
+				max-width: 400px;
+				margin: var(--space-md);
+				background: var(--bg-secondary);
+				border: 1px solid var(--glass-border-light);
+				border-radius: var(--radius-2xl);
+				padding: var(--space-2xl);
+				box-shadow: 
+					0 25px 80px rgba(0, 0, 0, 0.6),
+					0 0 0 1px rgba(255, 255, 255, 0.05);
+				transform: translateY(20px) scale(0.95);
+				transition: all var(--duration-slow) var(--ease-out);
+			}
+
+			.auth-overlay.active .auth-modal {
+				transform: translateY(0) scale(1);
+			}
+
+			.auth-modal::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 15%;
+				right: 15%;
+				height: 2px;
+				background: var(--gradient-primary);
+				border-radius: var(--radius-full);
+			}
+
+			.auth-close {
+				position: absolute;
+				top: var(--space-md);
+				right: var(--space-md);
+				width: 32px;
+				height: 32px;
+				background: var(--bg-tertiary);
+				border: 1px solid var(--glass-border);
+				border-radius: 50%;
+				color: var(--text-tertiary);
+				font-size: 1rem;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all var(--duration-fast) var(--ease-out);
+				padding: 0;
+			}
+
+			.auth-close:hover {
+				background: var(--bg-card);
+				color: var(--text-primary);
+				transform: rotate(90deg);
+			}
+
+			.auth-header {
+				text-align: center;
+				margin-bottom: var(--space-xl);
+			}
+
+			.auth-header h2 {
+				font-size: 1.5rem;
+				margin-bottom: var(--space-sm);
+			}
+
+			.auth-header p {
+				color: var(--text-tertiary);
+				font-size: 0.9rem;
+				margin: 0;
+			}
+
+			.auth-tabs {
+				display: flex;
+				background: var(--bg-tertiary);
+				border-radius: var(--radius-full);
+				padding: 4px;
+				margin-bottom: var(--space-lg);
+			}
+
+			.auth-tab {
+				flex: 1;
+				padding: var(--space-sm) var(--space-md);
+				background: transparent;
+				border: none;
+				border-radius: var(--radius-full);
+				color: var(--text-tertiary);
+				font-family: inherit;
+				font-size: 0.875rem;
+				font-weight: 500;
+				cursor: pointer;
+				transition: all var(--duration-fast) var(--ease-out);
+			}
+
+			.auth-tab:hover {
+				color: var(--text-secondary);
+			}
+
+			.auth-tab.active {
+				background: var(--gradient-primary);
+				color: #fff;
+				box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+			}
+
+			.auth-form {
+				display: none;
+			}
+
+			.auth-form.active {
+				display: block;
+				animation: fadeSlideIn 0.35s var(--ease-out);
+			}
+
+			@keyframes fadeSlideIn {
+				from { opacity: 0; transform: translateX(8px); }
+				to { opacity: 1; transform: translateX(0); }
+			}
+
+			.auth-input-group {
+				position: relative;
+				margin-bottom: var(--space-md);
+			}
+
+			.auth-input-group input {
+				padding-left: 2.75rem;
+				margin-bottom: 0;
+			}
+
+			.auth-input-icon {
+				position: absolute;
+				left: var(--space-md);
+				top: 50%;
+				transform: translateY(-50%);
+				color: var(--text-muted);
+				font-size: 1rem;
+				pointer-events: none;
+				transition: color var(--duration-fast) var(--ease-out);
+			}
+
+			.auth-input-group input:focus + .auth-input-icon,
+			.auth-input-group input:not(:placeholder-shown) + .auth-input-icon {
+				color: var(--accent-purple);
+			}
+
+			.auth-divider {
+				display: flex;
+				align-items: center;
+				gap: var(--space-md);
+				margin: var(--space-lg) 0;
+				color: var(--text-muted);
+				font-size: 0.8rem;
+			}
+
+			.auth-divider::before,
+			.auth-divider::after {
+				content: "";
+				flex: 1;
+				height: 1px;
+				background: var(--glass-border);
+			}
+
+			.auth-social {
+				display: flex;
+				gap: var(--space-sm);
+				margin-bottom: var(--space-lg);
+			}
+
+			.auth-social-btn {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: var(--space-sm);
+				padding: var(--space-md);
+				background: var(--bg-tertiary);
+				border: 1px solid var(--glass-border);
+				border-radius: var(--radius-lg);
+				color: var(--text-secondary);
+				font-family: inherit;
+				font-size: 0.875rem;
+				font-weight: 500;
+				cursor: pointer;
+				transition: all var(--duration-fast) var(--ease-out);
+			}
+
+			.auth-social-btn:hover {
+				background: var(--bg-card);
+				border-color: var(--glass-border-light);
+				transform: translateY(-1px);
+			}
+
+			.auth-social-btn svg {
+				width: 18px;
+				height: 18px;
+			}
+
+			.auth-submit {
+				width: 100%;
+				margin-top: var(--space-sm);
+			}
+
+			.auth-footer {
+				text-align: center;
+				margin-top: var(--space-lg);
+				padding-top: var(--space-lg);
+				border-top: 1px solid var(--glass-border);
+			}
+
+			.auth-footer a {
+				color: var(--accent-blue);
+			}
+
+			/* Auth trigger button in nav */
+			.auth-trigger {
+				background: var(--gradient-primary) !important;
+				color: #fff !important;
+				padding: var(--space-sm) var(--space-lg) !important;
+				border-radius: var(--radius-full) !important;
+				font-weight: 600 !important;
+				box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+				border: none !important;
+			}
+
+			.auth-trigger:hover {
+				box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+				transform: translateY(-1px);
+				filter: brightness(1.1);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Custom Cursor -->
+		<div class="cursor cursor-dot" id="cursorDot"></div>
+		<div class="cursor cursor-ring" id="cursorRing"></div>
+
+		<header>
+			<div class="container">
+				<nav>
+					<a href="/" class="logo"><img src="/logo.png" alt="Editrix" /></a>
+					<ul>
+						<li><a href="/">Accueil</a></li>
+						<li><a href="/products">Produits</a></li>
+						<li><a href="/features">Fonctionnalités</a></li>
+						<li><a href="/for-whom">Pour qui</a></li>
+						<li><a href="/pricing">Tarifs</a></li>
+						<li><a href="/about">À propos</a></li>
+						<li><a href="/contact">Contact</a></li>
+						<li><a href="/faq">FAQ</a></li>
+						<li><a href="#" class="auth-trigger" id="openAuth">Connexion</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<slot name="hero" />
+
+		<main>
+			<div class="container">
+				<slot />
+			</div>
+		</main>
+
+		<footer>
+			<div class="container">
+				<div class="footer-links">
+					<a href="/legal/mentions-legales">Mentions légales</a>
+					<a href="/legal/politique-confidentialite">Politique de confidentialité</a>
+					<a href="/legal/politique-cookies">Politique de cookies</a>
+					<a href="/legal/cgu">CGU</a>
+					<a href="/legal/cgv">CGV</a>
+				</div>
+				<p style="text-align: center; color: #aaa; font-size: 0.9rem;">
+					&copy; 2025 Editrix. Tous droits réservés.
+				</p>
+			</div>
+		</footer>
+
+		<!-- Auth Modal -->
+		<div class="auth-overlay" id="authOverlay">
+			<div class="auth-modal">
+				<button class="auth-close" id="closeAuth">✕</button>
+				
+				<div class="auth-header">
+					<h2>Bienvenue</h2>
+					<p>Accédez à votre espace Editrix</p>
+				</div>
+
+				<div class="auth-tabs">
+					<button class="auth-tab active" data-tab="login">Connexion</button>
+					<button class="auth-tab" data-tab="signup">Inscription</button>
+				</div>
+
+				<!-- Login Form -->
+				<form class="auth-form active" id="loginForm">
+					<div class="auth-input-group">
+						<input type="email" placeholder="Email" required />
+						<span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+					</div>
+					<div class="auth-input-group">
+						<input type="password" placeholder="Mot de passe" required />
+						<span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+					</div>
+					<div style="text-align: right; margin-bottom: 1rem;">
+						<a href="#" style="font-size: 0.85rem; color: var(--fg-muted);">Mot de passe oublié ?</a>
+					</div>
+					<button type="submit" class="button auth-submit">Se connecter</button>
+				</form>
+
+				<!-- Signup Form -->
+				<form class="auth-form" id="signupForm">
+					<div class="auth-input-group">
+						<input type="text" placeholder="Nom complet" required />
+						<span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
+					</div>
+					<div class="auth-input-group">
+						<input type="email" placeholder="Email" required />
+						<span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+					</div>
+					<div class="auth-input-group">
+						<input type="password" placeholder="Mot de passe" required />
+						<span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+					</div>
+					<button type="submit" class="button auth-submit">Créer mon compte</button>
+				</form>
+
+				<div class="auth-divider">ou continuer avec</div>
+
+				<div class="auth-social">
+					<button type="button" class="auth-social-btn">
+						<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+						Google
+					</button>
+					<button type="button" class="auth-social-btn">
+						<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+						GitHub
+					</button>
+				</div>
+
+				<div class="auth-footer">
+					<p style="font-size: 0.85rem; color: var(--fg-muted); margin: 0;">
+						En continuant, vous acceptez nos <a href="/legal/cgu">CGU</a> et <a href="/legal/politique-confidentialite">Politique de confidentialité</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Custom Cursor
+			const cursorDot = document.getElementById('cursorDot');
+			const cursorRing = document.getElementById('cursorRing');
+			let mouseX = 0, mouseY = 0;
+			let ringX = 0, ringY = 0;
+
+			document.addEventListener('mousemove', (e) => {
+				mouseX = e.clientX;
+				mouseY = e.clientY;
+				if (cursorDot) {
+					cursorDot.style.left = mouseX + 'px';
+					cursorDot.style.top = mouseY + 'px';
+				}
+			});
+
+			// Smooth ring follow
+			function animateRing() {
+				ringX += (mouseX - ringX) * 0.15;
+				ringY += (mouseY - ringY) * 0.15;
+				if (cursorRing) {
+					cursorRing.style.left = ringX + 'px';
+					cursorRing.style.top = ringY + 'px';
+				}
+				requestAnimationFrame(animateRing);
+			}
+			animateRing();
+
+			// Hover effect on interactive elements
+			const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .card');
+			interactiveElements.forEach(el => {
+				el.addEventListener('mouseenter', () => {
+					cursorDot?.classList.add('hovering');
+					cursorRing?.classList.add('hovering');
+				});
+				el.addEventListener('mouseleave', () => {
+					cursorDot?.classList.remove('hovering');
+					cursorRing?.classList.remove('hovering');
+				});
+			});
+
+			// Click effect
+			document.addEventListener('mousedown', () => {
+				cursorRing?.classList.add('clicking');
+			});
+			document.addEventListener('mouseup', () => {
+				cursorRing?.classList.remove('clicking');
+			});
+
+			// Header scroll effect
+			const header = document.querySelector('header');
+			let lastScroll = 0;
+			
+			window.addEventListener('scroll', () => {
+				const currentScroll = window.scrollY;
+				if (currentScroll > 50) {
+					header?.classList.add('scrolled');
+				} else {
+					header?.classList.remove('scrolled');
+				}
+				lastScroll = currentScroll;
+			}, { passive: true });
+
+			// Auth Modal Logic
+			const authOverlay = document.getElementById('authOverlay');
+			const openAuth = document.getElementById('openAuth');
+			const closeAuth = document.getElementById('closeAuth');
+			const authTabs = document.querySelectorAll<HTMLButtonElement>('.auth-tab');
+			const authForms = document.querySelectorAll('.auth-form');
+
+			openAuth?.addEventListener('click', (e) => {
+				e.preventDefault();
+				authOverlay?.classList.add('active');
+				document.body.style.overflow = 'hidden';
+			});
+
+			closeAuth?.addEventListener('click', () => {
+				authOverlay?.classList.remove('active');
+				document.body.style.overflow = '';
+			});
+
+			authOverlay?.addEventListener('click', (e) => {
+				if (e.target === authOverlay) {
+					authOverlay.classList.remove('active');
+					document.body.style.overflow = '';
+				}
+			});
+
+			authTabs.forEach(tab => {
+				tab.addEventListener('click', () => {
+					const targetTab = tab.dataset.tab;
+					
+					authTabs.forEach(t => t.classList.remove('active'));
+					tab.classList.add('active');
+					
+					authForms.forEach(form => {
+						form.classList.remove('active');
+						if (form.id === targetTab + 'Form') {
+							form.classList.add('active');
+						}
+					});
+				});
+			});
+
+			// Escape key to close modal
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && authOverlay?.classList.contains('active')) {
+					authOverlay.classList.remove('active');
+					document.body.style.overflow = '';
+				}
+			});
+
+			// Smooth reveal animations on scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('revealed');
+						observer.unobserve(entry.target);
+					}
+				});
+			}, observerOptions);
+
+			document.querySelectorAll('.card, section > .container > *').forEach(el => {
+				el.classList.add('reveal-on-scroll');
+				observer.observe(el);
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,185 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const offres = [
+	{
+		nom: "Editrix Creator",
+		tagline: "Pour créateurs solo",
+		features: [
+			"Montage IA automatique",
+			"Multi-formats (9:16, 16:9, 1:1)",
+			"Sous-titres intelligents",
+			"Exports optimisés",
+			"Usage individuel",
+			"Bibliothèque de templates"
+		],
+		ideal: "Créateurs YouTube, TikTok, Reels",
+		icon: "video"
+	},
+	{
+		nom: "Editrix Pro",
+		tagline: "Pour freelances et agences",
+		features: [
+			"Toutes les fonctionnalités Creator",
+			"Multi-comptes et projets",
+			"Collaboration en équipe",
+			"Workflows clients",
+			"Exports en volume",
+			"Gestion centralisée",
+			"Support prioritaire"
+		],
+		ideal: "Freelances, petites agences",
+		icon: "briefcase",
+		popular: true
+	},
+	{
+		nom: "Editrix Studio",
+		tagline: "Pour la croissance et les résultats",
+		features: [
+			"Toutes les fonctionnalités Pro",
+			"Analyse prédictive de performance",
+			"Score de rétention estimé",
+			"Recommandations IA avancées",
+			"Historique des performances",
+			"Comparatif de vidéos",
+			"API et intégrations",
+			"Account manager dédié"
+		],
+		ideal: "Créateurs avancés, studios, marques",
+		icon: "chart"
+	}
+];
+---
+
+<Layout title="Tarifs Editrix" description="Choisissez l'offre Editrix qui correspond à vos besoins">
+	<div class="card" style="text-align: center;">
+		<h1>Tarifs</h1>
+		<p style="font-size: 1.2rem; color: #b0b0b0; margin-bottom: 1rem;">
+			Choisissez l'offre qui correspond à vos besoins
+		</p>
+		<p style="font-size: 1rem; color: #888;">
+			Actuellement en early access · Tarifs préférentiels pour les premiers utilisateurs
+		</p>
+	</div>
+
+	<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+		{offres.map(offre => (
+			<div class={`card ${offre.popular ? 'popular-card' : ''}`} style="text-align: center; position: relative;">
+				{offre.popular && (
+					<div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #ff3399 0%, #ff6699 100%); color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">
+						Plus populaire
+					</div>
+				)}
+				
+				<div style="margin-bottom: 1.5rem; margin-top: 1rem;">
+					{offre.icon === "video" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>}
+					{offre.icon === "briefcase" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#grad2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>}
+					{offre.icon === "chart" && <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#grad3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient></defs><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>}
+				</div>
+				<h2 style="margin-bottom: 0.5rem;">{offre.nom}</h2>
+				<p class="neon-text" style="font-weight: 600; margin-bottom: 1.5rem;">{offre.tagline}</p>
+				
+				<div style="margin-bottom: 2rem;">
+					<p style="font-size: 2rem; font-weight: 700; color: #ff3399; margin-bottom: 0.5rem;">
+						{offre.nom === "Editrix Creator" ? "15 € / mois" : offre.nom === "Editrix Pro" ? "29 € / mois" : "Sur devis"}
+					</p>
+					<p style="font-size: 0.9rem; color: #888;">
+						{offre.nom === "Editrix Studio" ? "Tarif adapté à votre usage" : "Tarif fixe"}
+					</p>
+				</div>
+
+				<div style="text-align: left; margin-bottom: 2rem;">
+					<h3 style="font-size: 1rem; margin-bottom: 1rem; text-align: center;">Fonctionnalités incluses :</h3>
+					<ul style="list-style: none; padding: 0;">
+						{offre.features.map(feature => (
+							<li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
+								<span style="position: absolute; left: 0; color: var(--accent-purple);"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+								{feature}
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div style="margin-bottom: 2rem; padding: 1rem; background: rgba(255, 51, 153, 0.05); border-radius: 12px;">
+					<p style="font-size: 0.9rem; color: #b0b0b0;">
+						<strong style="color: #ff3399;">Idéal pour :</strong><br />
+						{offre.ideal}
+					</p>
+				</div>
+
+				<a href="/contact" class="button" style="width: 100%;">
+					Demander un devis
+				</a>
+			</div>
+		))}
+	</div>
+
+	<div class="card" style="text-align: center;">
+		<h2>Offre Early Access</h2>
+		<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+			Rejoignez la liste d'attente et bénéficiez de tarifs préférentiels et d'un accès prioritaire
+		</p>
+		<div style="max-width: 600px; margin: 0 auto 2rem; padding: 2rem; background: rgba(255, 51, 153, 0.05); border-radius: 12px; border: 1px solid rgba(255, 51, 153, 0.2);">
+			<ul style="list-style: none; padding: 0; text-align: left;">
+				<li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+					<span style="position: absolute; left: 0; color: var(--accent-purple);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+					<strong>-30% sur votre première année</strong>
+				</li>
+				<li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+					<span style="position: absolute; left: 0; color: var(--accent-purple);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+					<strong>Accès prioritaire aux nouvelles fonctionnalités</strong>
+				</li>
+				<li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+					<span style="position: absolute; left: 0; color: var(--accent-purple);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+					<strong>Support dédié pendant l'onboarding</strong>
+				</li>
+				<li style="padding-left: 2rem; position: relative;">
+					<span style="position: absolute; left: 0; color: var(--accent-purple);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+					<strong>Influence directe sur la roadmap produit</strong>
+				</li>
+			</ul>
+		</div>
+		<a href="/contact" class="button">Rejoindre la liste d'attente</a>
+	</div>
+
+	<div class="card">
+		<h2 style="text-align: center; margin-bottom: 2rem;">Questions fréquentes sur les tarifs</h2>
+		<div style="max-width: 800px; margin: 0 auto;">
+			<div style="margin-bottom: 1.5rem;">
+				<h3 style="font-size: 1.1rem; color: #ff3399; margin-bottom: 0.5rem;">Comment sont calculés les tarifs ?</h3>
+				<p>Les tarifs sont adaptés à votre usage : volume de vidéos, nombre d'utilisateurs et fonctionnalités nécessaires. Contactez-nous pour un devis personnalisé.</p>
+			</div>
+			<div style="margin-bottom: 1.5rem;">
+				<h3 style="font-size: 1.1rem; color: #ff3399; margin-bottom: 0.5rem;">Puis-je essayer avant de m'engager ?</h3>
+				<p>Oui ! Nous proposons une démo complète et un accès de test pour que vous puissiez évaluer Editrix sur vos propres projets.</p>
+			</div>
+			<div style="margin-bottom: 1.5rem;">
+				<h3 style="font-size: 1.1rem; color: #ff3399; margin-bottom: 0.5rem;">Puis-je changer d'offre plus tard ?</h3>
+				<p>Absolument. Vous pouvez upgrader ou downgrader votre offre à tout moment selon l'évolution de vos besoins.</p>
+			</div>
+			<div>
+				<h3 style="font-size: 1.1rem; color: #ff3399; margin-bottom: 0.5rem;">Y a-t-il des frais cachés ?</h3>
+				<p>Non. Le tarif inclut toutes les fonctionnalités de votre offre. Aucun frais caché ni surprise.</p>
+			</div>
+		</div>
+	</div>
+
+	<section class="card" style="text-align: center;">
+		<h2>Besoin d'aide pour choisir ?</h2>
+		<p style="margin-bottom: 2rem;">Parlons de votre projet et trouvons l'offre qui vous correspond</p>
+		<a href="/contact" class="button">Demander un conseil</a>
+	</section>
+</Layout>
+
+<style>
+	@media (max-width: 768px) {
+		.card {
+			padding: 1.5rem 1rem !important;
+		}
+	}
+
+	.popular-card {
+		border-color: rgba(255, 51, 153, 0.5);
+		box-shadow: 0 8px 32px rgba(255, 51, 153, 0.3);
+	}
+</style>

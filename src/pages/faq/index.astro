@@ -1,0 +1,125 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const faqs = [
+	{
+		question: "Editrix remplace-t-il les monteurs vidéo ?",
+		reponse: "Non. Editrix est un co-monteur intelligent, pas un remplaçant. Il automatise les tâches répétitives et fastidieuses (coupes, sous-titres, exports multi-formats) pour vous laisser vous concentrer sur la créativité et les décisions stratégiques. Les monteurs gardent le contrôle total du résultat final."
+	},
+	{
+		question: "Sur quels systèmes Editrix fonctionne-t-il ?",
+		reponse: "Editrix est une application web accessible depuis n'importe quel navigateur moderne (Chrome, Firefox, Safari, Edge). Pas besoin d'installation complexe ni de configuration matérielle spécifique. Accessible sur Windows, Mac et Linux."
+	},
+	{
+		question: "Quelles plateformes sont prises en charge ?",
+		reponse: "Editrix est optimisé pour les plateformes de contenu social : YouTube (longs formats et Shorts), TikTok, Instagram Reels, Facebook. Il génère automatiquement les formats adaptés à chaque plateforme (9:16, 16:9, 1:1) avec les spécifications optimales."
+	},
+	{
+		question: "Les données et vidéos sont-elles sécurisées ?",
+		reponse: "Absolument. Vos vidéos sont stockées de manière chiffrée et sécurisée. Nous ne partageons jamais vos contenus avec des tiers. Vos projets restent privés. Nous sommes conformes au RGPD et appliquons les meilleures pratiques en matière de sécurité des données."
+	},
+	{
+		question: "Peut-on utiliser Editrix pour du contenu professionnel / client ?",
+		reponse: "Oui, totalement. Les offres Pro et Studio sont spécialement conçues pour les freelances et agences qui travaillent pour des clients. Vous conservez tous les droits sur les vidéos produites avec Editrix. Vous pouvez facturer vos clients sans restriction."
+	},
+	{
+		question: "Que fait Editrix concrètement ?",
+		reponse: "Editrix analyse vos rushs vidéo, identifie automatiquement les moments clés, génère un rough-cut optimisé, crée des sous-titres synchronisés, adapte le montage à plusieurs formats (9:16, 16:9, 1:1), et prédit la performance de la vidéo avant publication. Vous ajustez ensuite selon vos préférences."
+	},
+	{
+		question: "Que ne fait pas Editrix ?",
+		reponse: "Editrix ne crée pas de contenu depuis zéro, ne filme pas vos vidéos, et ne remplace pas votre vision créative. Il ne fait pas non plus du montage long format complexe type documentaire ou cinéma. Editrix est spécialisé dans le contenu social media court et moyen format."
+	},
+	{
+		question: "Puis-je essayer Editrix avant de m'engager ?",
+		reponse: "Oui ! Nous proposons une démo complète et un accès de test pour que vous puissiez évaluer Editrix sur vos propres projets. Contactez-nous via le formulaire de contact pour demander un accès démo."
+	},
+	{
+		question: "Comment sont calculés les tarifs ?",
+		reponse: "Les tarifs dépendent de l'offre choisie (Creator, Pro ou Studio), du volume de vidéos traitées, et du nombre d'utilisateurs. Nous proposons des tarifs adaptés à votre usage. Contactez-nous pour un devis personnalisé."
+	},
+	{
+		question: "Puis-je changer d'offre plus tard ?",
+		reponse: "Absolument. Vous pouvez upgrader ou downgrader votre offre à tout moment selon l'évolution de vos besoins. Aucun engagement longue durée. Flexibilité totale."
+	},
+	{
+		question: "Editrix fonctionne-t-il hors ligne ?",
+		reponse: "Non. Editrix nécessite une connexion internet pour fonctionner car le traitement IA se fait dans le cloud. Cela permet d'avoir une puissance de calcul maximale sans dépendre de votre matériel local."
+	},
+	{
+		question: "Quels formats de fichiers sont supportés ?",
+		reponse: "Editrix supporte les formats vidéo courants : MP4, MOV, AVI, MKV, WEBM. Pour les exports, vous obtenez des MP4 optimisés pour chaque plateforme avec les codecs et paramètres recommandés."
+	},
+	{
+		question: "Y a-t-il une limite de durée ou de taille de vidéo ?",
+		reponse: "Les limites dépendent de votre offre. Creator : jusqu'à 30 min / vidéo. Pro : jusqu'à 60 min / vidéo. Studio : jusqu'à 120 min / vidéo. Pour les tailles de fichiers, contactez-nous pour des besoins spécifiques."
+	},
+	{
+		question: "Editrix génère-t-il des vidéos complètement automatiques ?",
+		reponse: "Editrix génère un rough-cut intelligent que vous pouvez affiner selon vos préférences. Le niveau d'automatisation est ajustable : vous pouvez partir du montage IA et simplement ajuster, ou utiliser Editrix comme assistant pour des montages plus personnalisés."
+	},
+	{
+		question: "Comment fonctionne la prédiction de performance ?",
+		reponse: "L'IA d'Editrix Studio analyse votre vidéo et la compare à des millions de vidéos performantes sur les plateformes cibles. Elle évalue le hook, le rythme, la structure, la durée optimale et estime un score de rétention et d'engagement. Ces prédictions s'affinent avec le temps."
+	}
+];
+---
+
+<Layout title="FAQ - Questions fréquentes Editrix" description="Trouvez les réponses à vos questions sur Editrix">
+	<div class="card" style="text-align: center;">
+		<h1>Questions Fréquentes</h1>
+		<p style="font-size: 1.2rem; color: #b0b0b0;">
+			Trouvez les réponses aux questions les plus courantes sur Editrix
+		</p>
+		<div style="margin-top: 2rem;">
+			<input type="text" id="search" placeholder="Rechercher dans les questions et réponses..." style="max-width: 500px; margin: 0 auto; display: block;" />
+		</div>
+	</div>
+
+	<div style="max-width: 900px; margin: 0 auto;">
+		{faqs.map((faq, index) => (
+			<div class="card faq-item">
+				<h2 style="font-size: 1.3rem; color: #ff3399; margin-bottom: 1rem;">
+					{index + 1}. {faq.question}
+				</h2>
+				<p style="line-height: 1.8;">
+					{faq.reponse}
+				</p>
+			</div>
+		))}
+	</div>
+
+	<section class="card" style="text-align: center;">
+		<h2>Vous avez d'autres questions ?</h2>
+		<p style="margin-bottom: 2rem; font-size: 1.1rem;">
+			Notre équipe est là pour vous répondre
+		</p>
+		<a href="/contact" class="button">Nous contacter</a>
+	</section>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const searchInput = document.getElementById('search') as HTMLInputElement;
+			if (!searchInput) return;
+
+			const faqItems = document.querySelectorAll('.faq-item');
+
+			searchInput.addEventListener('input', (e) => {
+				const term = (e.target as HTMLInputElement).value.toLowerCase();
+				faqItems.forEach(item => {
+					const questionEl = item.querySelector('h2');
+					const reponseEl = item.querySelector('p');
+					if (questionEl && reponseEl) {
+						const question = questionEl.textContent?.toLowerCase() || '';
+						const reponse = reponseEl.textContent?.toLowerCase() || '';
+						if (question.includes(term) || reponse.includes(term)) {
+							(item as HTMLElement).style.display = 'block';
+						} else {
+							(item as HTMLElement).style.display = 'none';
+						}
+					}
+				});
+			});
+		});
+	</script>
+</Layout>
