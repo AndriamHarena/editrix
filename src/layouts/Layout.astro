@@ -1024,16 +1024,19 @@ const { title, description = "Editrix - Le co-monteur vidéo IA pour YouTube, Ti
 				top: 100%;
 				left: 50%;
 				transform: translateX(-50%) translateY(8px);
-				min-width: 180px;
+				display: flex;
+				flex-direction: row;
+				gap: var(--space-xs);
 				background: var(--bg-secondary);
 				border: 1px solid var(--glass-border-light);
-				border-radius: var(--radius-lg);
-				padding: var(--space-sm);
+				border-radius: var(--radius-full);
+				padding: var(--space-xs) var(--space-sm);
 				opacity: 0;
 				visibility: hidden;
 				transition: all var(--duration-fast) var(--ease-out);
 				box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 				z-index: 100;
+				white-space: nowrap;
 			}
 
 			.nav-dropdown:hover .nav-dropdown-menu {
@@ -1048,8 +1051,8 @@ const { title, description = "Editrix - Le co-monteur vidéo IA pour YouTube, Ti
 
 			.nav-dropdown-menu a {
 				display: block;
-				padding: var(--space-sm) var(--space-md);
-				border-radius: var(--radius-md);
+				padding: var(--space-xs) var(--space-md);
+				border-radius: var(--radius-full);
 				color: var(--text-secondary);
 				font-size: 0.875rem;
 				transition: all var(--duration-fast) var(--ease-out);
